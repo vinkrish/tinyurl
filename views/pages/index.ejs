@@ -12,7 +12,55 @@
         <h2>URL Shortener</h2>
     </div>
 
-    
+    <div id="url_shortener">
+        <form id="url_shortener_form">
+            <div class="form-group">
+                <label for="lengthy_url">Lengthy URL</label>
+                <input type="text" class="form-control" id="lengthy_url" name="lengthy_url" placeholder="Enter URL" required>
+            </div>
+            <div class="form-group">
+                <label for="custom_name">Custom name</label>
+                <input type="text" class="form-control" id="custom_name" name="custom_name" placeholder="Enter custom name">
+            </div>
+            <button type="submit" id="url_shortener" class="btn btn-primary">Retrieve</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div id="response_div" class="display" style="display: none">
+        <p id="error" style="color: red;"></p>
+        <p><b>Provided URL:</b></p>
+        <p id="provided_url"></p>
+        <p><b>Shortened URL:</b></p>
+        <p id="shortened_url"></p>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("#url_shortener").submit(function(e){
+                e.preventDefault();
+                $.post("/api/getShortUrl",
+                $("#url_shortener_form").serialize(),
+                function(data, status){
+                    printShortenedUrl(data);
+                });
+            });
+
+            function printShortenedUrl(data) {
+                document.getElementById("url_shortener_form").reset();
+
+                document.getElementById('response_div').style.display = 'block';
+                document.getElementById('provided_url').innerText = data.providedUrl;
+                document.getElementById('shortened_url').innerText = data.shortenedUrl;
+                if (data.error) {
+                    document.getElementById('error').innerHTML = data.error.bold();
+                }
+            }
+
+        });
+    </script>
 
 </body>
 </html>

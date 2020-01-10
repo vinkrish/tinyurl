@@ -5,6 +5,8 @@ const routes = () => {
 
   const urlController = require('../controller/urlController')()
 
+  apiRouter.route('/getShortUrl').post(urlController.getShortUrl)
+
   return apiRouter
 }
 
