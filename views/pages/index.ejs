@@ -41,6 +41,7 @@
 
             $("#url_shortener").submit(function(e){
                 e.preventDefault();
+                document.getElementById('response_div').style.display = 'none';
                 $.post("/api/getShortUrl",
                 $("#url_shortener_form").serialize(),
                 function(data, status){
@@ -54,8 +55,8 @@
                 document.getElementById('response_div').style.display = 'block';
                 document.getElementById('provided_url').innerText = data.providedUrl;
                 document.getElementById('shortened_url').innerText = data.shortenedUrl;
-                if (data.error) {
-                    document.getElementById('error').innerHTML = data.error.bold();
+                if (data.custom_error != "") {
+                    document.getElementById('error').innerHTML = data.custom_error.bold();
                 }
             }
 

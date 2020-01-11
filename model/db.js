@@ -1,6 +1,6 @@
 var mysql = require('mysql')
 
-require('dotenv').config()
+// require('dotenv').config()
 
 var connection = mysql.createConnection({
     host     : process.env.DB_HOST,
@@ -19,4 +19,10 @@ connection.connect(function(err) {
     console.log('Connected to database.');
 });
 
-connection.end()
+// create table url( `id` BIGINT NOT NULL AUTO_INCREMENT, `lengthy_url` varchar(1024), `shortened_url` varchar(16), `hash` varchar(64), PRIMARY KEY (`id`) );
+
+// alter table url AUTO_INCREMENT=1000000
+
+// connection.end()
+
+module.exports = connection;
