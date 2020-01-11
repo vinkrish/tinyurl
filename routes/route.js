@@ -1,9 +1,9 @@
 module.exports = function (app, passport) {
-  app.get('/admin', function (req, res) {
+  app.get('/admin', (req, res) => {
     res.render('pages/admin.ejs')
   })
 
-  app.get('/login', function (req, res) {
+  app.get('/login', (req, res) => {
     res.render('pages/login.ejs', { message: 'Succesfully logged in' })
   })
 
@@ -12,13 +12,13 @@ module.exports = function (app, passport) {
     failureRedirect: '/login' // redirect back to the signup page if there is an error
   }))
 
-  app.get('/home', isLoggedIn, function (req, res) {
+  app.get('/home', isLoggedIn, (req, res) => {
     res.render('pages/home', {
       user: req.user
     })
   })
 
-  app.get('/logout', function (req, res) {
+  app.get('/logout', (req, res) => {
     req.logout()
     res.redirect('/admin')
   })
@@ -30,7 +30,23 @@ module.exports = function (app, passport) {
     passport.authenticate('google', {
       successRedirect: '/home',
       failureRedirect: '/admin'
-    }))
+    })
+  )
+
+  app.get('*', (req, res) => {
+    const originalUrlController = require('../controller/originalUrlController')()
+    originalUrlController.getOriginalUrl(req.path)
+      .then(url => {
+        if (url) {
+          res.redirect(url)
+        } else {
+          res.render('pages/404')
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  })
 }
 
 function isLoggedIn (req, res, next) {

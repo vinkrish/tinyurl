@@ -7,7 +7,7 @@ const urlController = () => {
   const ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   const BASE     = ALPHABET.length
 
-  const getShortUrl = async function (req, res) {
+  const getShortUrl = async (req, res) => {
     const lengthyUrl = req.body.lengthy_url
     const customName = req.body.custom_name
     let custom_error, customUrl = ''
@@ -22,7 +22,7 @@ const urlController = () => {
       return res.send({ providedUrl: urls[0].lengthy_url, shortenedUrl: urls[0].shortened_url, custom_error: 'The custom name you have provided is not available. We have created a random one for you instead.' })
     } else if (urls.length) {
       return res.send({ providedUrl: urls[0].lengthy_url, shortenedUrl: urls[0].shortened_url, custom_error })
-    } 
+    }
     
     let shortenedUrl = ''
     if (customName) {
@@ -52,7 +52,7 @@ const urlController = () => {
 
   const reverseString = str => { 
     return str.split('').reverse().join('') 
- }
+  }
 
   const encode = num => {
     let str = '';
@@ -61,14 +61,6 @@ const urlController = () => {
         num = Math.floor(num/BASE)
     }
     return reverseString(str)
-  }
-
-  const decode = str => {
-    let num = 0;
-    for (let i=0; i<str.length; i++) {
-      num = num * BASE + ALPHABET.indexOf(str[i]);
-    }
-    return num;
   }
 
   return {
