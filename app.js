@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(cors())
 
-app.use(session({ resave: false, saveUninitialized: true, secret: 'secretsession' })) // session secret
+app.use(session({ resave: false, saveUninitialized: true, secret: 'secretsession' }))
 app.use(passport.initialize())
 app.use(passport.session()) // persistent login sessions
 

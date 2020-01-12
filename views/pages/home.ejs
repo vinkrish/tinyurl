@@ -35,13 +35,17 @@
 
         $("#time_series_data").submit(function(e){
             e.preventDefault();
+            getTimeSeriesData();
+        });
+
+        function getTimeSeriesData() {
             $.post("/api/getTimeSeriesData",
             $("#time_series_data_form").serialize(),
             function(data, status){
                 let plotData = preparePlotData(JSON.parse(data))
                 plotGraph(plotData)
             });
-        });
+        }
 
         function preparePlotData(data) {
             convertedData = [];
@@ -107,7 +111,9 @@
                     data: data
                 }]
             });
-        }        
+        }
+
+        getTimeSeriesData();
 
     });
 </script>
