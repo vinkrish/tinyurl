@@ -32,7 +32,7 @@ const urlController = () => {
       }       
     }
 
-    let obj = {lengthy_url: lengthyUrl, hash: hashedUrl, created_on: new Date(new Date().toDateString()).getTime()}
+    let obj = {lengthy_url: lengthyUrl, hash: hashedUrl, created_on: new Date().getTime()}
 
     db.query('INSERT INTO url SET ?', obj, function (error, results, fields) {
       if (error) throw error;

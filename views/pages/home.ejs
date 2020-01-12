@@ -14,6 +14,16 @@
 
 <main>
 
+    <div id="time_series_data">
+        <form id="time_series_data_form">
+            <button type="submit" id="time_series_data" class="btn btn-primary">Plot Time Series</button>
+        </form>
+    </div>
+
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+    </figure>
+
 </main>
 
 <footer>
@@ -22,7 +32,83 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        
+
+        $("#time_series_data").submit(function(e){
+            e.preventDefault();
+            $.post("/api/getTimeSeriesData",
+            $("#time_series_data_form").serialize(),
+            function(data, status){
+                let plotData = preparePlotData(JSON.parse(data))
+                plotGraph(plotData)
+            });
+        });
+
+        function preparePlotData(data) {
+            convertedData = [];
+            for(url of data) {
+                convertedData.push([url.created_on, url.count]);
+            }
+            return convertedData
+        }
+
+        function plotGraph(data) {
+            Highcharts.chart('container', {
+                chart: {
+                    zoomType: 'x'
+                },
+                title: {
+                    text: 'Number of tiny URL created over time'
+                },
+                subtitle: {
+                    text: document.ontouchstart === undefined ?
+                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        text: 'No. of conversion'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    area: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                            ]
+                        },
+                        marker: {
+                            radius: 2
+                        },
+                        lineWidth: 1,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+
+                series: [{
+                    type: 'area',
+                    name: 'url',
+                    data: data
+                }]
+            });
+        }        
+
     });
 </script>
 
