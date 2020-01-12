@@ -1,12 +1,8 @@
 module.exports = function (app, passport) {
-  app.get('/admin', (req, res) => {
-    res.render('pages/admin.ejs')
-  })
-
   app.get('/login', (req, res) => {
-    res.render('pages/login.ejs', { message: 'Succesfully logged in' })
+    res.render('pages/login.ejs')
   })
-
+  
   app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/home', // redirect to the secure home section
     failureRedirect: '/login' // redirect back to the signup page if there is an error
@@ -20,7 +16,7 @@ module.exports = function (app, passport) {
 
   app.get('/logout', (req, res) => {
     req.logout()
-    res.redirect('/admin')
+    res.redirect('/login')
   })
 
   app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
@@ -29,7 +25,7 @@ module.exports = function (app, passport) {
   app.get('/oauth2callback',
     passport.authenticate('google', {
       successRedirect: '/home',
-      failureRedirect: '/admin'
+      failureRedirect: '/login'
     })
   )
 
@@ -52,5 +48,5 @@ module.exports = function (app, passport) {
 function isLoggedIn (req, res, next) {
   if (req.isAuthenticated()) { return next() }
 
-  res.redirect('/admin')
+  res.redirect('/login')
 }

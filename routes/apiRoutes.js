@@ -9,7 +9,7 @@ const routes = () => {
 
   const adminController = require('../controller/adminController')()
 
-  apiRouter.route('/getTimeSeriesData').post(adminController.getTimeSeriesData)
+  apiRouter.route('/getTimeSeriesData').get(adminController.getTimeSeriesData)
 
   return apiRouter
 }

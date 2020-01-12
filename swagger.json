@@ -1,0 +1,159 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "URL Shortener",
+    "contact": {
+      "email": "vinaykrishna1989@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "urlshortener",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations by user"
+    },
+    {
+      "name": "admin",
+      "description": "Operations by admin"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/getShortUrl": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Returns shortened URL for lenghty URL",
+        "description": "User enters lenghty URL to get shortened URL as response.",
+        "operationId": "getShortUrl",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lengthy_url",
+            "in": "query",
+            "description": "Enter lengthy URL",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "custom_name",
+            "in": "query",
+            "description": "Enter custom name for lengthy URL",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Logs user into the system",
+        "description": "To access time series plot admin needs to be logged in.",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email Id for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/getTimeSeriesData": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Returns time series data",
+        "description": "Displays time series plot of number of URL conversion over time.",
+        "operationId": "getTimeSeriesData",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  }
+}
