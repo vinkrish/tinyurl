@@ -68,6 +68,24 @@
         }
       }
     },
+    "/short_url": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "access original URL",
+        "description": "Redirects user to lengthly URL",
+        "operationId": "getOriginalUrl",
+        "produces": [
+          "html"
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/login": {
       "post": {
         "tags": [
@@ -76,6 +94,9 @@
         "summary": "Logs user into the system",
         "description": "To access time series plot admin needs to be logged in.",
         "operationId": "",
+        "produces": [
+          "html"
+        ],
         "parameters": [
           {
             "name": "email",
@@ -129,7 +150,7 @@
         "description": "",
         "operationId": "logoutUser",
         "produces": [
-          "application/json"
+          "html"
         ],
         "parameters": [],
         "responses": {
