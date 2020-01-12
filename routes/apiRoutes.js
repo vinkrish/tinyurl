@@ -7,6 +7,10 @@ const routes = () => {
 
   apiRouter.route('/getShortUrl').post(urlController.getShortUrl)
 
+  const adminController = require('../controller/adminController')()
+
+  apiRouter.route('/getTimeSeriesData').post(adminController.getTimeSeriesData)
+
   return apiRouter
 }
 

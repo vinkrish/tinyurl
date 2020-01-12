@@ -23,6 +23,10 @@ connection.connect(function(err) {
 
 // alter table url AUTO_INCREMENT=1000000
 
+// ALTER TABLE url ADD created_on BIGINT NOT NULL;
+
+// SELECT COUNT(*) as count, created_on FROM url GROUP BY created_on;
+
 // connection.end()
 
 module.exports = connection;
