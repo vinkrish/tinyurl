@@ -24,7 +24,9 @@ Shortened URL:
 As Admin:
 
 - You need to login first before accessing your dashboard: [ec2-54-197-199-83.compute-1.amazonaws.com/login](ec2-54-197-199-83.compute-1.amazonaws.com/login)
+- User `test@tinyurl.com` as email and `testpassword` as password to login.
 - Admin will see time series plot of number of URL's shortened over time.
+- Since we don't have custom domain we can't use google authentication.
 
 ## Application Architecture
 
