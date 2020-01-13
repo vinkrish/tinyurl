@@ -54,7 +54,7 @@
 
                 document.getElementById('response_div').style.display = 'block';
                 document.getElementById('provided_url').innerText = data.providedUrl;
-                document.getElementById('shortened_url').innerText = data.shortenedUrl;
+                document.getElementById('shortened_url').innerText = 'ec2-54-197-199-83.compute-1.amazonaws.com/' + data.shortenedUrl;
                 if (data.custom_error != "") {
                     document.getElementById('error').innerHTML = data.custom_error.bold();
                 }
